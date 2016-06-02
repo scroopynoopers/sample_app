@@ -62,12 +62,18 @@ p {
 
 /* header */
 
+.myNavbar   {
+    background-color: #66ccff;
+    color:#66ccff;
+    border: 1px solid #66ccff;
+ }
+
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: white;
-  text-transform: uppercase;
+  color: #2d2d2d;
+/*  text-transform: uppercase; */
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
