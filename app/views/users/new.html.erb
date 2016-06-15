@@ -1,3 +1,7 @@
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 <% provide(:title, 'Sign up') %>
 <h1>Sign up</h1>
 
@@ -19,6 +23,7 @@
 
       <%= f.submit "Create my account", class: "btn btn-primary", :onclick => "myFunction()" %>
       
+      <p>Already have an account? <%= link_to "Log in!", login_path %></p>
       <script>
       function myFunction() {
           alert("I confirm that I am at least 13 years old.");
