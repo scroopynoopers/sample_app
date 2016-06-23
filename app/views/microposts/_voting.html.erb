@@ -1,0 +1,11 @@
+<span class="Liking-system">
+  <%= link_to like_micropost_path(micropost), :class => 'btn btn-primary', method: :put do %>
+    👌
+  <%= micropost.get_upvotes.size %>
+  <% end %>
+  
+  <%= link_to dislike_micropost_path(micropost), :class => 'btn btn-primary', method: :put do %>
+    👎
+  <%= micropost.get_downvotes.size %>
+<% end %>  
+</span>

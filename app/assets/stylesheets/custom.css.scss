@@ -262,16 +262,20 @@ input {
   }
   .content {
     display: block;
-    margin-left: 60px;
     img {
+    width: 100%;
       display: block;
       padding: 5px 0;
     }
   }
   .timestamp {
     color: $gray-light;
-    display: block;
+    display: inline;
     margin-left: 60px;
+  }
+  .like-counter {
+    display: inline;
+    float: right;
   }
   .gravatar {
     float: left;
