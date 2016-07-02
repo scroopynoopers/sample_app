@@ -6,12 +6,18 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = "Micropost created!"
-      redirect_to root_url
+      respond_to do |format|
+        format.html
+        format.js do
+          stuff = render_to_string(partial: "microposts/micropost.html", locals: {micropost: @micropost})
+          render partial: 'micropost', locals: {stuff: stuff}
+        end
+      end
     else
       @feed_items = []
       render 'static_pages/home'
     end
-  end
+end
 
   def destroy
     @micropost.destroy
@@ -20,18 +26,30 @@ class MicropostsController < ApplicationController
   end
 
 
-  def upvote 
+  def upvote
     @micropost = Micropost.find(params[:id])
     @micropost.upvote_by current_user
     flash[:success] = "Upvoted"
-    redirect_to :back
-  end  
-  
+    respond_to do |format|
+      format.html
+      format.js do
+        voting_partial = render_to_string(partial: "microposts/voting.html", locals: {micropost: @micropost})
+        render partial: 'upvote_downvote', locals: {partial_to_render: voting_partial, micropost: @micropost}
+      end
+    end
+  end
+
   def downvote
     @micropost = Micropost.find(params[:id])
     @micropost.downvote_by current_user
     flash[:success] = "Downvoted"
-    redirect_to :back
+    respond_to do |format|
+      format.html
+      format.js do
+        voting_partial = render_to_string(partial: "microposts/voting.html", locals: {micropost: @micropost})
+        render partial: 'upvote_downvote', locals: {partial_to_render: voting_partial, micropost: @micropost}
+      end
+    end
   end
 
 
