@@ -5,7 +5,6 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
-      flash[:success] = "Micropost created!"
       respond_to do |format|
         format.html
         format.js do
@@ -22,14 +21,18 @@ end
   def destroy
     @micropost.destroy
     flash[:success] = "Micropost deleted"
-    redirect_to request.referrer || root_url
+    respond_to do |format|
+      format.html
+      format.js do
+        render partial: 'delete', locals: {micropost_id: params[:id]}
+      end
+    end
   end
 
 
   def upvote
     @micropost = Micropost.find(params[:id])
     @micropost.upvote_by current_user
-    flash[:success] = "Upvoted"
     respond_to do |format|
       format.html
       format.js do
@@ -42,7 +45,6 @@ end
   def downvote
     @micropost = Micropost.find(params[:id])
     @micropost.downvote_by current_user
-    flash[:success] = "Downvoted"
     respond_to do |format|
       format.html
       format.js do
